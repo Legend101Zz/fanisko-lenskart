@@ -1,0 +1,40 @@
+[
+  {
+    "category": "Lenskart",
+    "sub_category": "LK",
+    "contentType": "ss",
+    "contentTypeId": "ss-1",
+    "teamName": "Karan",
+    "poseName": "Selfie",
+    "selfie": "karan",
+    "guidelines": "",
+    "squareSelfie": {
+      "movVideoUrl": "./datas/lk/01/MA1.mov",
+      "webmVideoUrl": "./datas/lk/01/MA1.webm",
+      "selfieImageUrl": "./datas/lk/01/Karan.png",
+      "positionMarkerImageUrl": "./datas/lk/01/Marker.png",
+      "waterMarkerImageUrl": "./datas/lk/01/Karan_Sticker.png",
+      "waterMarkerPosition": "bottom",
+      "imageCaptureTime": "4"
+    }
+  },
+  {
+    "category": "Lenskart",
+    "sub_category": "LK",
+    "contentType": "ss",
+    "contentTypeId": "ss-1",
+    "teamName": "Kiara",
+    "poseName": "kiara",
+    "selfie": "kiara",
+    "guidelines": "",
+    "squareSelfie": {
+      "movVideoUrl": "./datas/lk/02/MA2.mov",
+      "webmVideoUrl": "./datas/lk/02/MA2.webm",
+      "selfieImageUrl": "./datas/lk/02/Kiara.png",
+      "positionMarkerImageUrl": "./datas/lk/02/Marker.png",
+      "waterMarkerImageUrl": "./datas/lk/02/Kiara_Sticker.png",
+      "waterMarkerPosition": "bottom",
+      "imageCaptureTime": "2"
+    }
+  }
+]

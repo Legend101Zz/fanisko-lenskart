@@ -1,0 +1,21 @@
+[
+    {
+        "category": "Cricket",
+        "sub_category": "World Cup",
+        "contentType": "ss",
+        "contentTypeId": "ss-1",
+        "teamName": "test",
+        "poseName": "test",
+        "guidelines": "",
+        "squareSelfie": {
+            "movVideoUrl": "./datas/csk/01/01.mov",
+            "webmVideoUrl": "./datas/csk/01/01.webm",
+            "selfieImageUrl": "./datas/csk/01/01.png",
+            "positionMarkerImageUrl": "./datas/csk/01/position-01-latest.png",
+            "waterMarkerImageUrl": "./datas/watermark/CSK-banner.png",
+            "waterMarkerPosition": "bottom",
+            "imageCaptureTime": "4"
+        },
+        "key": "preview"
+    }
+]

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="./assets/images/lk-favicon.png" sizes="32x32" />
+    <title>Web-AR</title>
+    <!--========== import JS ==========-->
+    <script src="./assets/js/platform.js"></script>
+    <!--========== CSS ==========-->
+    <link rel="stylesheet" href="./assets/styles/styles.css" />
+  </head>
+
+  <body class="align-cc">
+    <!--========== APP ==========-->
+    <main id="root" class="align-cc">
+      <div id="app">
+        <div>
+          <div id="load--view" style="opacity: 1">
+            <div id="n-load" class="loader-with-text">
+              <img style="width: 100%" src="./assets/images/loader.gif" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
+      integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <!--========== MINDAR ==========-->
+    <script src="./assets/libs/mindar/mindar-face-three.prod.js"></script>
+
+    <!--========== MAIN JS ==========-->
+    <script src="./assets/js/main.js" type="module"></script>
+  </body>
+</html>
