@@ -1,8 +1,10 @@
 import { Utilis } from "./utilis.js";
 import { UIUtilis } from "./UIutilis.js";
 /*==================== Variables ====================*/
+// recorder lib global variable
+const { CanvasCapture } = window.CanvasCaptureLib;
+let mp4Capture;
 // Media variables
-
 const THREE = window.MINDAR.FACE.THREE;
 const photoQuality = 1;
 const photoMimeType = "image/jpeg"; //"image/png"
@@ -28,7 +30,7 @@ let waterMarkerImageUrl = "";
 let waterMarker = null;
 let waterMarkerPosition = "left";
 // selection type is photo ro video
-let selectionType = "photo";
+let selectionType = "video";
 // getting the value from api
 let contentType = "";
 let isDownload = "0";
@@ -85,6 +87,16 @@ let log_parameter = "";
 let format = "";
 let otpEntered = "";
 let userSelectedTeam = "";
+
+const MP4_OPTIONS = {
+  name: "fanisko-mp4",
+  format: CanvasCapture.MP4,
+  quality: 1,
+  fps: frameRate,
+  onExportProgress: (progress) =>
+    console.log(`MP4 export progress: ${progress}.`),
+  onExportFinish: () => console.log(`Finished MP4 export.`),
+};
 
 let selfie;
 // Common functions
@@ -172,7 +184,7 @@ function addselectionButtonEventListener() {
     .getElementById("select--photo--btn")
     .addEventListener("click", () => {
       console.log("photo --> Selected");
-      selectionType = "video";
+      selectionType = "photo";
       selection();
     });
   if (mobileOS != "Android") {
@@ -225,49 +237,56 @@ function videoRecorder() {
   if (contentType == "ss") {
     tempStream = SSrenderCanvas();
   }
-  mediaRecorder = new MediaRecorder(tempStream.captureStream(frameRate), {
-    mimeType: vidoMimeType,
+  mp4Capture = CanvasCapture.beginVideoRecord(MP4_OPTIONS);
+  CanvasCapture.init(tempStream, {
+    showRecDot: true,
+    showAlerts: true,
+    showDialogs: true,
+    verbose: false,
   });
-  mediaRecorder.start(100); // collect 100ms of data blobs
-  // console.log(mediaRecorder.state);
-  console.log("recording --> Started");
-  mediaRecorder.onstop = function (e) {
-    console.log("data available after MediaRecorder.stop() called.");
-    //  if (vidoMimeType == "video/mp4;codecs=avc1,mp4a") {
-    if (vidoMimeType == 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"') {
-      videoPreView = new Blob(chunks, { type: "video/mp4" });
-      storeBlob = videoPreView;
-      chunks = [];
+  // mediaRecorder = new MediaRecorder(tempStream.captureStream(frameRate), {
+  //   mimeType: vidoMimeType,
+  // });
+  // mediaRecorder.start(100); // collect 100ms of data blobs
+  // // console.log(mediaRecorder.state);
+  // console.log("recording --> Started");
+  // mediaRecorder.onstop = function (e) {
+  //   console.log("data available after MediaRecorder.stop() called.");
+  //   //  if (vidoMimeType == "video/mp4;codecs=avc1,mp4a") {
+  //   if (vidoMimeType == 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"') {
+  //     videoPreView = new Blob(chunks, { type: "video/mp4" });
+  //     storeBlob = videoPreView;
+  //     chunks = [];
 
-      //utilis.playRecDoneSound();
-      previewUIupdate();
-    } else {
-      videoPreView = new Blob(chunks, { type: vidoMimeType });
-      storeBlob = videoPreView;
+  //     //utilis.playRecDoneSound();
+  //     previewUIupdate();
+  //   } else {
+  //     videoPreView = new Blob(chunks, { type: vidoMimeType });
+  //     storeBlob = videoPreView;
 
-      chunks = [];
-      convertWebmtomp4();
-    }
-    // chunks = [];
-    // previewUIupdate();
-    console.log("recording -->  Completed");
-  };
-  mediaRecorder.ondataavailable = function (e) {
-    chunks.push(e.data);
-  };
-  if (contentType == "ss") {
-    ssvideoPlayer.currentTime = 0;
-    ssvideoPlayer.muted = true;
-    ssvideoPlayer.autoplay = true;
+  //     chunks = [];
+  //     convertWebmtomp4();
+  //   }
+  //   // chunks = [];
+  //   // previewUIupdate();
+  //   console.log("recording -->  Completed");
+  // };
+  // mediaRecorder.ondataavailable = function (e) {
+  //   chunks.push(e.data);
+  // };
+  // if (contentType == "ss") {
+  //   ssvideoPlayer.currentTime = 0;
+  //   ssvideoPlayer.muted = true;
+  //   ssvideoPlayer.autoplay = true;
 
-    //playVideo()
-    ssvideoPlayer.play();
-  } else {
-    /*===== set timeout to stop recording =====*/
-    setTimeout(function () {
-      stopRecording();
-    }, 10000);
-  }
+  //   //playVideo()
+  //   ssvideoPlayer.play();
+  // } else {
+  //   /*===== set timeout to stop recording =====*/
+  //   setTimeout(function () {
+  //     stopRecording();
+  //   }, 10000);
+  // }
 }
 
 /*==================== Convert Webmtomp4 ====================*/
@@ -319,20 +338,20 @@ function startRecording() {
   document.getElementById("show-1").style.display = "none";
   document.getElementById("rec-show").style.display = "flex";
 
-  let data1 = dataLayeraddon;
-  let data2 = {
-    event: "select_option",
-    page_title: "squad_selfie_record_video_page",
-    match: userSelectedTeam,
-    message: "start",
-  };
-  let data_push = Object.assign({}, data1, data2);
-  //console.log(data_push);
-  try {
-    dataLayer.push(data_push);
-  } catch (error) {
-    console.log(error);
-  }
+  // let data1 = dataLayeraddon;
+  // let data2 = {
+  //   event: "select_option",
+  //   page_title: "squad_selfie_record_video_page",
+  //   match: userSelectedTeam,
+  //   message: "start",
+  // };
+  // let data_push = Object.assign({}, data1, data2);
+  // //console.log(data_push);
+  // try {
+  //   dataLayer.push(data_push);
+  // } catch (error) {
+  //   console.log(error);
+  // }
 
   videoRecorder();
 }
@@ -352,7 +371,7 @@ function stopRecording() {
 /*==================== Squad selfie canvas prepare and draw ====================*/
 function SSrenderCanvas() {
   console.log("SSrenderCanvas FN");
-  const camera = document.getElementById("camera--view");
+  const camera = document.getElementById("camera--view").querySelector("video");
   const player = document.getElementById("video--player");
   const hiddenCanvas = document.createElement("canvas");
   const watermark = document.getElementById("watermark");
@@ -807,11 +826,18 @@ function fetchData() {
       selfie = urlParams.get("selfie");
 
       let localPath = `./jsons/ss.json`;
+      console.log(CanvasCapture);
       jsonparser(localPath);
     } else {
       UIdesktopAlert();
     }
   } catch (err) {}
 }
+// /*================== MEDIA RECORDER ANIMATION LOOP ====================*/
+function loop() {
+  requestAnimationFrame(loop);
+  if (CanvasCapture.isRecording()) CanvasCapture.recordFrame();
+}
 // /*==================== DOM ContentLoaded ====================*/
+loop();
 fetchData();
